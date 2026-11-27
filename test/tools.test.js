@@ -28,5 +28,5 @@ test("calls the Semantic Scholar graph API", () => {
 
 test("package.json declares an MCP SDK range that excludes 1.31.0", () => {
   const range = pkg.dependencies["@modelcontextprotocol/sdk"];
-  assert.equal(range, "^1.32.1");
+  assert.equal(range, "^1.32.2");
 });
