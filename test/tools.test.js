@@ -28,5 +28,12 @@ test("calls the Semantic Scholar graph API", () => {
 
 test("package.json declares an MCP SDK range that excludes 1.31.0", () => {
   const range = pkg.dependencies["@modelcontextprotocol/sdk"];
-  assert.equal(range, "^1.32.2");
+  const match = /^\^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.exec(range);
+  assert.ok(match, "MCP SDK range must be a stable caret range");
+  const [major, minor, patch] = match.slice(1).map(Number);
+  assert.equal(major, 1, "MCP SDK range must stay within major 1");
+  assert.ok(
+    minor > 32 || (minor === 32 && patch >= 1),
+    "MCP SDK minimum must be at least 1.32.1, excluding 1.31.0",
+  );
 });
